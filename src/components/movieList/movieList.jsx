@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Select from 'react-select';
 
 const initialMovies  = [
@@ -23,7 +24,8 @@ const defaultGenre = { value: 'Drama', label: 'Drama' };
 const MovieList = () => {
     const [movies, setMovies] = useState(initialMovies);
     const [selectedGenre, setSelectedGenre] = useState(defaultGenre);
-
+    const router = useRouter();
+    
     const handleGenreChange = (selectedOption) => {
         setSelectedGenre(selectedOption || defaultGenre);
     };
@@ -48,6 +50,12 @@ const MovieList = () => {
             isClearable={false}
             />
         </div>
+        <button
+          className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+          onClick={() => router.push('/add-movie')}
+        >
+          Add New Movie
+        </button>
         <h2 className="text-3xl font-bold my-4">{selectedGenre.value}</h2>
         <ul className="bg-white shadow-md rounded-lg mt-4">
             {filteredMovies.map((movie) => (
